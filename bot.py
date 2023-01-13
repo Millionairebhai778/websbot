@@ -26,8 +26,8 @@ def start(client, message):
             message.reply_text(text =f"Hello **{message.from_user.first_name }** \n\n **Iam Simple web scraper** 🕸 \n __SEND ME WEBSITE LINK AND GET THAT WEB SOURCE__",reply_to_message_id = message.message_id , parse_mode="markdown", reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("Support 🇮🇳" ,url="https://t.me/lntechnical") ],
-                 [InlineKeyboardButton("Subscribe 🧐", url="https://youtube.com/c/LNtechnical") ]          ]        ) )
+                    InlineKeyboardButton("⚡𝐎𝐖𝐍𝐄𝐑⚡" ,url="https://t.me/FILMWORLDOFFICIA") ],
+                 [InlineKeyboardButton("♻𝐂𝐇𝐀𝐍𝐍𝐄𝐋♻", url="https://t.me/FILMWORLDOFFI") ]          ]        ) )
 
 
 @app.on_message(filters.regex("^(http|https|www\.)"))
