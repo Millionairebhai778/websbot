@@ -1,6 +1,5 @@
 import os
 import requests as re
-from bs4 import BeautifulSoup
 from pyrogram import Client, filters
 from pyrogram.types import (
     InlineKeyboardButton,
@@ -36,23 +35,19 @@ def start(client, message):
     msg_id = message.chat.id
     html_url = message.text
     try:
-    	page = re.get(html_url)
-    	soup = BeautifulSoup(page,'html.parser')
-    except Exception as e:
-    	ms.edit(f"```Error : {e}```")
-    	return
-    f = open(f"{msg_id}.txt" , "w")
-    f.write(str(soup.prettify()))
-    f.close()
-
-    caption = "Here Your Web Source"
+        page = re.get(html_url, timeout=10)
+        if page.status_code != 200:
+            message.reply_text("Invalid URL.")
+            return
+    except re.exceptions.Timeout:
+        message.reply_text("Error: Request Timeout")
+        return
+    app.send_chat_action(chat_id=message.chat.id, action="typing")
     try:
-    	app.send_document(message.chat.id ,document = f"{msg_id}.txt",caption = caption)
+        page_text = page.text
+        app.send_message(chat_id=message.chat.id, text=page_text)
     except ValueError as ve:
-    	ms.edit("```file Size value error")
-    	os.remove(f"{msg_id}.txt")
-    	return
+        message.reply_text("Error: File Size Value Error")
     ms.delete()
-    os.remove(f"{msg_id}.txt")
-	
+
 app.run()
